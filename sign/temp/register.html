@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% for m in messages %}
+{{ m }}
+{% endfor %}
+<div class="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <form class="main_form" method="post" action="/Register/" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <input class="form-control" placeholder="first_name" type="text" name="first_name">
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <input class="form-control" placeholder="last_name" type="text" name="last_name">
+                            </div>
+                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <input class="form-control" placeholder="username" type="text" name="username">
+                            </div>
+                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <input class="form-control" placeholder="age" type="number" name="age">
+                            </div>
+                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <input class="form-control" placeholder="gender" type="text" name="gender">
+                            </div>
+                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <input class="form-control" placeholder="email" type="text" name="email">
+                            </div>
+                            <div class=" col-md-12">
+                                <input class="form-control" placeholder="contact" type="text" name="contact">
+                            </div>
+                            <div class="col-md-12">
+                                <textarea class="textarea" placeholder="address" name="address"></textarea>
+                            </div>
+                            <div class=" col-md-12">
+                                <input class="form-control" placeholder="password1" type="password" name="password1">
+                            </div>
+                            <div class=" col-md-12">
+                                <input class="form-control" placeholder="password2" type="password" name="password2">
+                            </div>
+                            <div class=" col-md-12">
+                                <button class="send">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

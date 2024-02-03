@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="about">
+   <div class="container">
+      <div class="row">
+         <form method="post" action="/add/{{s.id}}/" enctype="multipart/form-data">
+            {% csrf_token %}
+         <dir class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+            <div class="about_box">
+               <figure><img src="{{s.image.url}}" class="img-responsive"></figure>
+            </div>
+         </dir>
+          <dir class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+            <div class="about_box">
+               <h3>{{s.name}}</h3>
+               <p>{{s.brand}}</p>
+               <p>{{s.color}}</p>
+               <p>{{s.height}}</p>
+               <p>{{s.des}}</p>
+               <p>{{s.weight}}</p>
+               <p>{{s.price}}</p>
+               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+                  <center><li><button type="submit" action="/add/{{s.id}}/">Add to Cart</button></li></center>
+               </div>
+               <input type="hidden" type="text" name="product_id" value="{{s.id}}" placeholder="product_id">
+               <input type="number" name="qty" value="{{s.qty}}" placeholder="qty">
+               <input hidden type="number" name="price" value="{{s.price}}" placeholder="price">
+            </div>
+         </dir>
+         </form>
+      </div>
+   </div>
+</div>
+    {% endblock %}
