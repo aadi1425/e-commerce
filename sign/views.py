@@ -228,7 +228,7 @@ def checkout(request):
         state = request.POST['state']
         zip = request.POST['zip']
 
-        print(user,f_name,l_name,username,email,address,country,state,zip)
+        print(user,f_name,l_name,username,email,address,country,state,zip,'hhheeeeeeeeeeeeey')
 
         cart=AddCart.objects.filter(user=user)
         for i in cart:
@@ -236,32 +236,29 @@ def checkout(request):
         check=Checkout(user_id=user,f_name=f_name,l_name=l_name,username=username,
                       email=email,address=address,country=country,state=state,zip=zip)
         check.save()
+        print('hellloooooooooooooooooooooooooooooooooooo')
         # total=sum(i.total for i in cart)
         # print(total,'tooooooooooooooooo')
         # print(cart)
-        return render(request,'checkout.html',{'cart': cart})
-    else:
-        print('dinchak')
-        user = request.user.id
-        cart = AddCart.objects.filter(user=user)
-        for i in cart:
-            print(i.product_id.name, 'sdfghjkhjk')
-        return render(request,'checkout.html',{'cart':cart})
+        # return render(request,'checkout.html',{'cart': cart})
+
+
         # return HttpResponse('ok ')
         # order_details = "\n".join([
         #     f"Product: {c.pro.name}, Quantity: {c.quantity}, Price: {c.pro.price}, Total Price: {c.total}"
         #     for c in cart
-        # ])
-        o=OrderItem(user_id=user, name=name,email=email,address=address,phone=phone,info=info,total_price=total_price)
-        o.save()
+        # ])7\
+
+        # o=OrderItem(user_id=user, name=name,email=email,address=address,phone=phone,info=info,total_price=total_price,order=order )
+        # o.save()
         for c in cart:
             cart_item=OrderItem(
                 user_id=user,
-                order_id=o.id,
-                prod_id=c.pro,
-                image=c.pro.image,
-                quantity=c.quantity,
-                price=c.pro.price,
+                order_id=c.id,
+                prod_id=c.product_id,
+                image=c.product_id.image,
+                quantity=c.qty,
+                price=c.product_id.price,
                 total_price=c.total
 
 
@@ -269,14 +266,13 @@ def checkout(request):
             cart_item.save()
             cart.delete()
             print('cart_item')
-        print(o,'ooooorderrrrrrrrrrrrrrrrrrrrrrr')
-        subject = 'Order Confirmation'
-        message = f"Dear {name},\n\nYour order has been successfully placed!\n\nOrder Details:\n{order_details}\n\nTotal Price: {total}\n\nThank you for shopping with us!"
-        from_email = settings.EMAIL_HOST_USER
-        to_email = [request.user.email]  # Change this if you want to send to a different email address
-
-        send_mail(subject, message, from_email, to_email)
-
         messages.success(request, 'Order successfully placed! Thanks for shopping, visit again.')
-        return HttpResponse('dinchak')
+        return redirect('/')
         # return HttpResponse("Data is printed in terminal")
+    else:
+        print('dinchak')
+        user = request.user.id
+        cart = AddCart.objects.filter(user=user)
+        for i in cart:
+            print(i.product_id.name, 'sdfghjkhjk')
+        return render(request, 'checkout.html', {'cart': cart})
